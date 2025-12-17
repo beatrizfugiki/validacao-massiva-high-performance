@@ -1,10 +1,10 @@
-# Automação de Validação Massiva de Acessos 🚀
+# Automação de Validação Massiva de Acessos
 
 Este projeto consiste em um pipeline de Engenharia de Dados e Automação desenvolvido em Python para validar a disponibilidade de ofertas em um portal web para uma base massiva de clientes (**~100.000 registros diários**).
 
 O objetivo principal foi substituir verificações sequenciais ou manuais por uma solução de alta performance capaz de processar milhares de requisições por minuto, integrando os dados diretamente ao Data Warehouse corporativo.
 
-## 🛠 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 * **Python 3.10+**
 * **Requests:** Para requisições HTTP leves e verificação de status code.
@@ -12,7 +12,7 @@ O objetivo principal foi substituir verificações sequenciais ou manuais por um
 * **Google BigQuery (pandas-gbq):** Leitura (Input) e Escrita (Output) de dados na nuvem.
 * **Pandas:** Manipulação, limpeza e transformação de dados (ETL).
 
-## ⚙️ Arquitetura da Solução
+## Arquitetura da Solução
 
 1.  **Extração Dinâmica:** O script conecta ao BigQuery, identifica a tabela correta baseada na data de referência (lógica dinâmica de sufixos) e consolida os dados com o histórico de clientes (SCD Type 2).
 2.  **Processamento Paralelo:**
@@ -22,7 +22,7 @@ O objetivo principal foi substituir verificações sequenciais ou manuais por um
     * Gera um backup local em CSV para auditoria.
     * Envia os resultados enriquecidos de volta para uma tabela consolidada no BigQuery para consumo de dashboards.
 
-## 📈 Resultados
+## Resultados
 
 * **Escalabilidade:** Capacidade comprovada de processar +100.000 requisições em tempo reduzido.
 * **Eficiência:** Redução drástica no tempo de validação (SLA de horas para minutos).

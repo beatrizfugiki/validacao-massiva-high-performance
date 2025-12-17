@@ -7,7 +7,7 @@ import os
 from datetime import datetime
 
 # ==============================================================================
-# CONFIGURATION & CONSTANTS
+# CONFIGURAÇÃO E CONSTANTES
 # ==============================================================================
 
 # Data de Referência para execução
@@ -16,7 +16,6 @@ data = datetime.strptime(DATE_REF, "%Y-%m-%d")
 YYMM = data.strftime("%y%m")  # Formato: AAMM
 
 # Configurações do Google Cloud Platform (GENÉRICAS)
-# NOTA: Em produção, use variáveis de ambiente.
 PROJECT_ID = "your-gcp-project-id" 
 DATASET_ID = "production_dataset"
 
@@ -34,7 +33,7 @@ BASE_URL_TEMPLATE = "https://api.target-site-example.com/check-offers/{}"
 print(f"--- Iniciando Processo de Validação Massiva: {YYMM} ---")
 
 # ==============================================================================
-# 1. DISCOVERY: Identificação Dinâmica da Tabela de Origem
+# 1. Identificação Dinâmica da Tabela de Origem
 # ==============================================================================
 print(f"Buscando tabela de origem no BigQuery para o período '{YYMM}'...")
 
@@ -66,7 +65,7 @@ except Exception as e:
 # ==============================================================================
 
 try:
-    # Query SQL: Join da base diária com histórico de clientes (SCD Type 2)
+    # Query SQL: Join da base diária com histórico de clientes 
     # Nomes de colunas e tabelas foram anonimizados para proteção de dados.
     query = f"""
     WITH recent_customers AS (
@@ -99,7 +98,7 @@ try:
     df_from_bq = pandas_gbq.read_gbq(query, project_id=PROJECT_ID)
     print(f"Linhas carregadas: {len(df_from_bq)}")
 
-    # Limpeza de Dados (Data Cleaning)
+    # Limpeza de Dados 
     # Remove caracteres não numéricos do telefone
     df_from_bq['NUM_TELEFONE'] = df_from_bq['NUM_TELEFONE'].astype(str).str.replace(r'\D', '', regex=True)
     
@@ -110,7 +109,7 @@ except Exception as e:
     print(f"ERRO durante o processo de ETL: {e}")
     exit()
 
-# Remove duplicatas para evitar chamadas redundantes à API (Otimização)
+# Remove duplicatas para evitar chamadas redundantes à API
 df_unique = df_processed.drop_duplicates(subset=['NUM_TELEFONE']).dropna(subset=['NUM_TELEFONE'])
 print(f"\nRegistros únicos para processar: {len(df_unique)}")
 
@@ -195,5 +194,6 @@ try:
     print(f"Sucesso! Dados anexados à tabela {DESTINATION_TABLE}.")
 except Exception as e:
     print(f"Falha no upload para nuvem: {e}")
+
 
 print("\n--- Processo Finalizado ---")

@@ -24,13 +24,13 @@ O objetivo principal foi substituir verificações sequenciais ou manuais por um
 
 ## Resultados
 
-* **Escalabilidade:** Capacidade comprovada de processar +100.000 requisições em tempo reduzido.
+* **Escalabilidade:** Capacidade comprovada de processar ~100.000 requisições em tempo reduzido.
 * **Eficiência:** Redução drástica no tempo de validação (SLA de horas para minutos).
 * **Confiabilidade:** Enriquecimento da base de dados com feedback em tempo real, eliminando falhas humanas.
 
 ---
 
-### ⚠️ Disclaimer / Observação Importante
+### ⚠️ Observação Importante
 
 **Nota sobre Confidencialidade e Dados:**
 
